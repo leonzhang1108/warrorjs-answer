@@ -8,28 +8,30 @@ class Player {
     this.isEnemyInSight(warrior)
       ? warrior.shoot(this.getDirection())
       : this.isHealthy(warrior)
-        ? this.forward
-          ? this.toRescue(warrior)
-          : this.isEnemyBehind(warrior)
-            ? this.forward = !this.forward
-            : this.toRescue(warrior)
+      ? this.forward
+        ? this.toRescue(warrior)
+        : this.isEnemyBehind(warrior)
+          ? this.forward = !this.forward
+          : this.toRescue(warrior)
+      : this.isCaptiveBehind(warrior)
+        ? this.forward = !this.forward
         : warrior.rest()
-    
+
   }
-  
+
   toRescue(warrior) {
     this.isCaptiveInSight(warrior)
       ? this.isNextToCaptive(warrior)
         ? warrior.rescue(this.getDirection())
         : this.moveForward(warrior)
       : this.findStairs(warrior)
-  } 
+  }
 
   findStairs(warrior) {
-    !this.isStairsInSight(warrior) 
-      && this.isWallInSight(warrior) 
+    !this.isStairsInSight(warrior)
+      && this.isWallInSight(warrior)
       && (this.forward = !this.forward)
-      
+
     this.moveForward(warrior)
   }
 
@@ -65,13 +67,17 @@ class Player {
     return this.isHumanInSight(warrior, false, false)
   }
 
-  isNextToCaptive(warrior) {
-    return warrior.feel(this.getDirection()).isUnit() && warrior.feel(this.getDirection()).getUnit().isBound()
+  isCaptiveBehind(warrior) {
+    return this.isHumanInSight(warrior, false, true)
   }
 
   isHumanInSight(warrior, isEnemy, isBack) {
     const spaceWithUnit = warrior.look(isBack ? this.getNegDirection() : this.getDirection()).find(space => space.isUnit())
     return spaceWithUnit && (isEnemy ? spaceWithUnit.getUnit().isEnemy() : spaceWithUnit.getUnit().isBound())
+  }
+
+  isNextToCaptive(warrior) {
+    return warrior.feel(this.getDirection()).isUnit() && warrior.feel(this.getDirection()).getUnit().isBound()
   }
 
   isWallInSight(warrior) {
