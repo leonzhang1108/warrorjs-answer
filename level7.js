@@ -19,10 +19,6 @@ class Player {
     this.location === 3 && (this.isAttackArcher = true)
   }
 
-  setForward(forward) {
-    this.forward = forward
-  }
-
   setHeath(warrior) {
     this.health = warrior.health()
   }

@@ -18,7 +18,6 @@ class Player {
     const first = warrior.look()[0]
     const second = warrior.look()[1]
     const thrid = warrior.look()[2]
-    const length = warrior.look().length
 
     if (first.isEmpty() && second.isUnit() && second.getUnit().isBound()) return 1
 
