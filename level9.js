@@ -9,15 +9,17 @@ class Player {
     this.isEnemyInSight()
       ? this.warrior.shoot(this.getDirection())
       : this.isHealthy()
-        ? this.forward
-          ? this.toRescue()
-          : this.isEnemyBehind()
-            ? this.forward = !this.forward
-            : this.toRescue()
+        ? this.isEnemyBehind()
+          ? this.pivot()
+          : this.toRescue()
         : this.isCaptiveBehind()
-          ? this.forward = !this.forward
+          ? this.pivot()
           : this.warrior.rest()
 
+  }
+
+  pivot() {
+    this.forward = !this.forward
   }
 
   toRescue() {
@@ -31,7 +33,7 @@ class Player {
   findStairs() {
     !this.isStairsInSight()
       && this.isWallInSight()
-      && (this.forward = !this.forward)
+      && this.pivot()
 
     this.moveForward()
   }
