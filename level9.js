@@ -10,7 +10,7 @@ class Player {
       : this.isHealthy(warrior)
         ? this.forward
           ? this.toRescue(warrior)
-          : this.isEnemyInBack(warrior)
+          : this.isEnemyBehind(warrior)
             ? this.forward = !this.forward
             : this.toRescue(warrior)
         : warrior.rest()
@@ -57,7 +57,7 @@ class Player {
     return this.isHumanInSight(warrior, true, false)
   }
 
-  isEnemyInBack(warrior) {
+  isEnemyBehind(warrior) {
     return this.isHumanInSight(warrior, true, true)
   }
 
